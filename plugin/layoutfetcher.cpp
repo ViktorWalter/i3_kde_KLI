@@ -25,7 +25,7 @@ LayoutFetcher::~LayoutFetcher() {
 }
 
 QString LayoutFetcher::getLayoutStr(){
-    process->start("xkblayout-state print \"%s\"");
+    process->start("bash",QStringList() << "-c" << "xkblayout-state print \"%s\" | awk \'{printf \"%s\",toupper($1)}\'");
     process->waitForFinished();
     result = QString(process->readAllStandardOutput());
     
